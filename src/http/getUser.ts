@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosError } from "axios";
+import axios from "axios";
 
 const getUser = (name: string) => {
   return axios.get(`https://api.github.com/users/${name}`);

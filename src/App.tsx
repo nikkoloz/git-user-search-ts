@@ -20,14 +20,22 @@ export type UserProps = {
 };
 
 function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
   const [user, setUser] = useState<UserProps | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const dark: boolean = JSON.parse(localStorage.getItem("DARKMODE") || "");
-    setDarkMode(dark);
-    if (localStorage.getItem("USER") === null)
+    if (localStorage.getItem("DARKMODE") === null) {
+      console.log("err");
+
+      localStorage.setItem("DARKMODE", JSON.stringify(darkMode));
+    } else {
+      const dark: boolean = JSON.parse(
+        localStorage.getItem("DARKMODE") || "true"
+      );
+      setDarkMode(dark);
+    }
+    if (localStorage.getItem("USER"))
       localStorage.setItem("USER", JSON.stringify({}));
     else setUser(JSON.parse(localStorage.getItem("USER") || ""));
   }, []);

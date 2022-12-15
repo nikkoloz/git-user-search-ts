@@ -3,7 +3,7 @@ import getUser from "../http/getUser";
 import { useState } from "react";
 import { UserProps } from "../App";
 import { FormEventHandler, FormEvent } from "react";
-import { AxiosError } from "axios";
+import axios from "axios";
 type Props = {
   darkMode: boolean;
   setUser: React.Dispatch<React.SetStateAction<UserProps | null>>;
@@ -11,29 +11,31 @@ type Props = {
 };
 
 const SearchForm: React.FC<Props> = ({ darkMode, setUser, setLoading }) => {
-  const [searchText, setSearchText] = useState("");
-  const [getUserError, setGetUserError] = useState("");
+  const [searchText, setSearchText] = useState<string>("");
+  const [getUserError, setGetUserError] = useState<string>("");
   const handleSearch: FormEventHandler = async (e: FormEvent<Element>) => {
     e.preventDefault();
     setLoading(true);
     setUser(null);
-
     if (searchText !== "") {
       setSearchText("");
       try {
         const response = await getUser(searchText);
         setUser(response.data);
         localStorage.setItem("USER", JSON.stringify(response.data));
-        setLoading(false);
       } catch (error) {
-        const err = error as AxiosError;
-        if (err.response) setGetUserError(err.response.data?.message);
-        else if (err.message) setGetUserError(err.message);
-        setLoading(false);
+        if (axios.isAxiosError(error)) {
+          if (error.response) {
+            setGetUserError(error.response.data?.message);
+          } else if (error.message) {
+            setGetUserError(error.message);
+          }
+        }
       }
     } else {
       setGetUserError("empty");
     }
+    setLoading(false);
   };
   return (
     <>
