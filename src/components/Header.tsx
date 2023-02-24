@@ -1,12 +1,8 @@
 import moon from "../assets/moon.svg";
 import sun from "../assets/sun.svg";
+import type { HeaderTypes } from "../types/HeaderTypes";
 
-type Props = {
-  darkMode: boolean;
-  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Header: React.FC<Props> = ({ darkMode, setDarkMode }) => {
+const Header: React.FC<HeaderTypes> = ({ darkMode, setDarkMode }) => {
   const changeDarkMode = () => {
     if (darkMode === true) {
       setDarkMode(false);
@@ -18,23 +14,22 @@ const Header: React.FC<Props> = ({ darkMode, setDarkMode }) => {
   };
   return (
     <div
-      className={`flex justify-between mb-9 ${
-        darkMode ? "bg-main-dark-bg" : "bg-main-gray-light"
-      }`}
+      className={`mb-9 flex justify-between 
+      ${darkMode ? "bg-main-dark-bg" : "bg-main-gray-light"}`}
     >
-      <h1 className={`font-bold text-xl ${darkMode ? "text-white" : ""}`}>
+      <h1 className={`text-xl font-bold ${darkMode ? "text-white" : ""}`}>
         devfinder
       </h1>
       {!darkMode ? (
         <button onClick={changeDarkMode} className="flex items-center">
-          <p className={`font-bold text-xsm text-main-gray2`}>
+          <p className={`text-xsm font-bold text-main-gray2`}>
             LET THERE BE DARK
           </p>
           <img alt="moon" src={moon} className="ml-4" />
         </button>
       ) : (
         <button onClick={changeDarkMode} className="flex items-center">
-          <p className="font-bold text-xsm text-white">LET THERE BE LIGHT</p>
+          <p className="text-xsm font-bold text-white">LET THERE BE LIGHT</p>
           <img alt="sun" src={sun} className="ml-4" />
         </button>
       )}

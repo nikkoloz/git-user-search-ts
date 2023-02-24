@@ -1,5 +1,5 @@
 function Loading() {
-    return <h1 className="text-center font-black text-2xl">Loading...</h1>
+  return <h1 className="text-center text-2xl font-black">Loading...</h1>;
 }
 
-export default Loading
+export default Loading;
