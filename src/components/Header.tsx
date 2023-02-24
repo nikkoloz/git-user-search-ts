@@ -18,7 +18,7 @@ const Header: React.FC<HeaderTypes> = ({ darkMode, setDarkMode }) => {
       ${darkMode ? "bg-main-dark-bg" : "bg-main-gray-light"}`}
     >
       <h1 className={`text-xl font-bold ${darkMode ? "text-white" : ""}`}>
-        devfinder
+        Devfinder
       </h1>
       {!darkMode ? (
         <button onClick={changeDarkMode} className="flex items-center">
