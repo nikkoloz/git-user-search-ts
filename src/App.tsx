@@ -6,7 +6,7 @@ import Loading from "./components/Loading";
 import type { UserProps } from "./types/UserProps";
 
 function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(true);
   const [user, setUser] = useState<UserProps | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
