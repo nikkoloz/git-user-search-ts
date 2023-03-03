@@ -19,11 +19,13 @@ function App() {
       );
       setDarkMode(dark);
     }
-    if (localStorage.getItem("USER"))
+    if (localStorage.getItem("USER") === null) {
       localStorage.setItem("USER", JSON.stringify({}));
-    else {
-      const user: UserProps = JSON.parse(localStorage.getItem("USER") || "{}");
-      setUser(user);
+    } else {
+      const userFromLocal: UserProps = JSON.parse(
+        localStorage.getItem("USER") || "{}"
+      );
+      setUser(userFromLocal);
     }
   }, []);
 
@@ -40,7 +42,9 @@ function App() {
           setLoading={setLoading}
         />
         {loading && <Loading />}
-        {user && <UserCard user={user} setUser={setUser} darkMode={darkMode} />}
+        {user?.login !== undefined && (
+          <UserCard user={user} setUser={setUser} darkMode={darkMode} />
+        )}
       </div>
     </div>
   );
